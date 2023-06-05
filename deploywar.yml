@@ -1,0 +1,17 @@
+---
+ - name: Deploy war  
+   hosts: servers  
+   tasks:
+     - name: Stop Tomcat  
+       command: /opt/tomcat8/bin/shutdown.sh
+
+     - name: Delete old war  
+       command: rm -rf /opt/tomcat8/webapps/*.war
+
+     - name: Copy the war file  
+       copy:  
+         src: /root/workspace/sampleapp.war
+         dest: /opt/tomcat8/webapps/  
+
+     - name: Start Tomcat  
+       command: /opt/tomcat8/bin/startup.sh
